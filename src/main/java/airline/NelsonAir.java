@@ -1,5 +1,7 @@
 package airline;
 
+import flight.Flight;
+
 import java.util.Arrays;
 
 public class NelsonAir {
