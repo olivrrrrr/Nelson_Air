@@ -6,6 +6,8 @@ import flight.Flight;
 
 import java.util.Scanner;
 
+import static java.lang.Float.NaN;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -75,6 +77,11 @@ public class Main {
                 System.out.println("Please enter the flight number");
                 int inputtedFlightNumber = scanner.nextInt();
                 Flight chosenFlight = customerService.searchFlightList(inputtedFlightNumber, nelsonAir);
+                if(chosenFlight.getFlightNum() == NaN){
+                    System.out.println("Flight was not found");
+                } else {
+                    System.out.println(chosenFlight);
+                }
             }
         }
 //            Scanner scanner = new Scanner(System.in);
