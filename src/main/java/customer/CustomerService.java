@@ -30,6 +30,21 @@ public class CustomerService {
         return "Customer added to system.";
     }
 
+    // Search for customer within the database
+    public Customer searchForCustomer(String passportNumber, CustomerDatabase customerDatabase){
+        // Get the customer database
+        Customer[] customerDatabaseList = customerDatabase.getCustomerList();
+        // Loop thru the customer database
+        int customerDatabaseListLength = customerDatabaseList.length;
+        for(int i=0; i < customerDatabaseListLength; i++){
+            if(passportNumber.equals(customerDatabaseList[i].getPassportNumber())){
+                return customerDatabaseList[i];
+            }
+        }
+        Customer newCustomer = new Customer(null, null, null, null);
+        return  newCustomer;
+    }
+
 
     //Customer make a booking
     public String makeBooking (Customer customer, Flight flight) {
@@ -128,6 +143,19 @@ public class CustomerService {
         String stringListOfFlights =  nelsonAir.getListOfFlights().toString();
         System.out.println("Welcome to NelsonAir, please select your flight from below: ");
         System.out.println(stringListOfFlights);
+    }
+
+    // Search flight list method
+    public Flight searchFlightList(int flightNumber, NelsonAir nelsonAir){
+        Flight[] listOfFlights = nelsonAir.getListOfFlights();
+        int listOfFlightsLength = listOfFlights.length;
+        for(int i=0; i < listOfFlightsLength; i++){
+            if(flightNumber == listOfFlights[i].getFlightNum()){
+                return listOfFlights[i];
+            }
+        }
+
+        return new Flight(null, 0, null, null,null,null,0,null, 0);
     }
 
     //Display flights that you can book:

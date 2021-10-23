@@ -3,7 +3,7 @@ package customer;
 public class CustomerDatabase {
     private Customer[] customerList;
 
-    public CustomerDatabase(Customer[] customerList) {
+    public CustomerDatabase() {
         this.customerList = new Customer[10000];
     }
 

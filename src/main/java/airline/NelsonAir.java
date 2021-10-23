@@ -7,8 +7,8 @@ import java.util.Arrays;
 public class NelsonAir {
     private Flight[] listOfFlights;
 
-    public NelsonAir(Flight[] listOfFlights) {
-        this.listOfFlights = listOfFlights;
+    public NelsonAir() {
+        this.listOfFlights = new Flight[10000];
     }
 
     public Flight[] getListOfFlights() {

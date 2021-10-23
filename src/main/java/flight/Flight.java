@@ -2,6 +2,8 @@ package flight;
 import customer.Customer;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Flight {
     private LocalDate timeOfFlight;
@@ -17,12 +19,12 @@ public class Flight {
 
     public Flight(LocalDate timeOfFlight, int flightNum, FlightStatus flightStatus, Location origin, Location destination, PlaneModelType planeModelType, int capacity, Customer[] customers, int count) {
         this.timeOfFlight = timeOfFlight;
-        FlightNum = flightNum;
+        this.FlightNum = flightNum;
         this.flightStatus = flightStatus;
         this.origin = origin;
         this.destination = destination;
         this.planeModelType = planeModelType;
-        Capacity = capacity;
+        this.Capacity = capacity;
         this.customers = customers;
         this.count = count;
         this.isFullyBooked = false;
@@ -106,6 +108,21 @@ public class Flight {
 
     public void setCustomers(Customer[] customers) {
         this.customers = customers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Flight flight = (Flight) o;
+        return FlightNum == flight.FlightNum && Capacity == flight.Capacity && count == flight.count && Objects.equals(timeOfFlight, flight.timeOfFlight) && flightStatus == flight.flightStatus && origin == flight.origin && destination == flight.destination && planeModelType == flight.planeModelType && Arrays.equals(customers, flight.customers) && Objects.equals(isFullyBooked, flight.isFullyBooked);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(timeOfFlight, FlightNum, flightStatus, origin, destination, planeModelType, Capacity, count, isFullyBooked);
+        result = 31 * result + Arrays.hashCode(customers);
+        return result;
     }
 }
 
