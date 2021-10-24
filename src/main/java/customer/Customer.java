@@ -1,5 +1,6 @@
 package customer;
 
+import flight.Flight;
 import ticket.Ticket;
 
 import java.util.Arrays;
@@ -8,31 +9,39 @@ import java.util.Objects;
 public class Customer {
 
     private String name;
-    private int passportNumber;
-    private Long number;
+    private String passportNumber;
+    private String mobileNumber;
     private String email;
-    private Ticket[] ticket;
-    private double customerId;
+    private Ticket[] ticketList;
+    private Flight[] flights;
 
-    public Customer(String name, int passportNumber, Long number, String email, Ticket[] ticket) {
+    public Customer(String name, String passportNumber, String mobileNumber, String email) {
         this.name = name;
         this.passportNumber = passportNumber;
-        this.number = number;
+        this.mobileNumber = mobileNumber;
         this.email = email;
-        this.ticket = ticket;
-        this.customerId = Math.random() * 1000000000;
+        this.ticketList = new Ticket[50];
+        this.flights = new Flight[50];
+    }
+
+    public Flight[] getFlights() {
+        return flights;
+    }
+
+    public void setFlights(Flight[] flights) {
+        this.flights = flights;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getPassportNumber() {
+    public String getPassportNumber() {
         return passportNumber;
     }
 
-    public Long getNumber() {
-        return number;
+    public String getNumber() {
+        return mobileNumber;
     }
 
     public String getEmail() {
@@ -40,19 +49,19 @@ public class Customer {
     }
 
     public Ticket[] getTicket() {
-        return ticket;
+        return ticketList;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setPassportNumber(int passportNumber) {
+    public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
     }
 
-    public void setNumber(Long number) {
-        this.number = number;
+    public void setNumber(String number) {
+        this.mobileNumber = mobileNumber;
     }
 
     public void setEmail(String email) {
@@ -60,21 +69,18 @@ public class Customer {
     }
 
     public void setTicket(Ticket[] ticket) {
-        this.ticket = ticket;
-    }
-
-    public double getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(double customerId) {
-        this.customerId = customerId;
+        this.ticketList = ticket;
     }
 
     @Override
     public String toString() {
         return "Customer{" +
-                "customerId=" + customerId +
+                "name='" + name + '\'' +
+                ", passportNumber='" + passportNumber + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", ticketList=" + Arrays.toString(ticketList) +
+                ", flights=" + Arrays.toString(flights) +
                 '}';
     }
 
@@ -83,13 +89,14 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return passportNumber == customer.passportNumber && Double.compare(customer.customerId, customerId) == 0 && Objects.equals(name, customer.name) && Objects.equals(number, customer.number) && Objects.equals(email, customer.email) && Arrays.equals(ticket, customer.ticket);
+        return Objects.equals(name, customer.name) && Objects.equals(passportNumber, customer.passportNumber) && Objects.equals(mobileNumber, customer.mobileNumber) && Objects.equals(email, customer.email) && Arrays.equals(ticketList, customer.ticketList) && Arrays.equals(flights, customer.flights);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name, passportNumber, number, email, customerId);
-        result = 31 * result + Arrays.hashCode(ticket);
+        int result = Objects.hash(name, passportNumber, mobileNumber, email);
+        result = 31 * result + Arrays.hashCode(ticketList);
+        result = 31 * result + Arrays.hashCode(flights);
         return result;
     }
 }

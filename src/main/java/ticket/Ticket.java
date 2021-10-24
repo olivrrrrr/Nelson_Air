@@ -7,19 +7,21 @@ import java.time.LocalDate;
 import flight.Location;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
-    public class Ticket {
+public class Ticket {
         private String name;
-        private long passNum;
-        private int ticketNumber;
+        private String passportNumber;
+
+    private int ticketNumber;
         private LocalDate timeOfFlight;
         private int flightNumber;
         private Location origin;
         private Location destination;
 
-        public Ticket(String name, long passNum, int ticketNumber, LocalDate timeOfFlight, int flightNumber, Location origin, Location destination) {
+        public Ticket(String name, String passportNumber, int ticketNumber, LocalDate timeOfFlight, int flightNumber, Location origin, Location destination) {
             this.name = name;
-            this.passNum = passNum;
+            this.passportNumber = passportNumber;
             this.ticketNumber = ticketNumber;
             this.timeOfFlight = timeOfFlight;
             this.flightNumber = flightNumber;
@@ -35,12 +37,12 @@ import java.time.LocalDate;
             this.name = name;
         }
 
-        public long getPassNum() {
-            return passNum;
+        public String getPassNum() {
+            return passportNumber;
         }
 
-        public void setPassNum(long passNum) {
-            this.passNum = passNum;
+        public void setPassNum(String passNum) {
+            this.passportNumber = passNum;
         }
 
         public int getTicketNumber() {
@@ -82,5 +84,31 @@ import java.time.LocalDate;
         public void setDestination(Location destination) {
             this.destination = destination;
         }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "name='" + name + '\'' +
+                ", passportNumber='" + passportNumber + '\'' +
+                ", ticketNumber=" + ticketNumber +
+                ", timeOfFlight=" + timeOfFlight +
+                ", flightNumber=" + flightNumber +
+                ", origin=" + origin +
+                ", destination=" + destination +
+                '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return ticketNumber == ticket.ticketNumber && flightNumber == ticket.flightNumber && Objects.equals(name, ticket.name) && Objects.equals(passportNumber, ticket.passportNumber) && Objects.equals(timeOfFlight, ticket.timeOfFlight) && origin == ticket.origin && destination == ticket.destination;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, passportNumber, ticketNumber, timeOfFlight, flightNumber, origin, destination);
+    }
+}
 
