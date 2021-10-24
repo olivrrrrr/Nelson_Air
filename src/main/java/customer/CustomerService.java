@@ -17,7 +17,7 @@ public class CustomerService {
         int listLength = customerList.length;
         for(int i = 0; i < listLength; i++)
         {
-            if(customerList[i].equals(null)) {
+            if(customerList[i] == null) {
                 customerList[i] = customer;
                 isFull = false;
                 break;
@@ -54,7 +54,7 @@ public class CustomerService {
             Customer[] customerList = flight.getCustomers();
             int length = customerList.length;
            for (int i = 0; i < length; i++){
-               if (customerList[i].equals(null)) {
+               if (customerList[i] == null) {
                    customerList[i] = customer;
                    break;
                }
@@ -67,7 +67,7 @@ public class CustomerService {
             int customerFlightListLength = flightList.length;
             boolean flightListIsFull = true;
             for (int i = 0; i < customerFlightListLength; i++){
-                if (flightList[i].equals(null)) {
+                if (flightList[i] == null) {
                     flightList[i] = flight;
                     flightListIsFull = false;
                     break;
@@ -93,7 +93,7 @@ public class CustomerService {
         int customerLength = customerList.length;
         boolean customerHasBooked = false;
         for (int i = 0; i < customerLength; i++) {
-            if (customerList[i].equals(customer)) {
+            if (customerList[i] == null) {
                 customerHasBooked = true;
                 break;
             }
@@ -117,7 +117,7 @@ public class CustomerService {
             boolean spaceforTicket = false;
             for (int i = 0 ; i < length; i++)
             {
-                if (ticketList[i].equals(null))
+                if (ticketList[i] == null)
                 {
                     ticketList[i] = ticket;
                     spaceforTicket = true;
@@ -200,7 +200,17 @@ public class CustomerService {
         }
         return "Booking was cancelled";
     }
-
+ //Method for searching tickets within the ticket list
+    public Ticket findTicket (Customer customer, Flight flight) {
+        Ticket[] ticketList = customer.getTicket();
+        int ticketListLength = ticketList.length;
+        for (int i = 0; i < ticketListLength; i++) {
+            if (ticketList[i].getFlightNumber() == flight.getFlightNum()) {
+                return ticketList[i];
+            }
+        }
+        return new Ticket(null, null, 0, null, 0, null, null);
+    }
 
 
 }
