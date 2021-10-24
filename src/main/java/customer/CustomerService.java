@@ -159,7 +159,17 @@ public class CustomerService {
     }
 
     //Display flights that you can book:
-    //Sabi
+    public void displayAvailableFlights(NelsonAir nelsonAir) {
+    Flight[] ListOfFlights = nelsonAir.getListOfFlights();
+    int FlightListLength = ListOfFlights.length;
+    boolean flightListIsFull = false;
+        for (Flight listOfFlight : ListOfFlights) {
+            if (listOfFlight.equals(FlightListLength)) {
+                System.out.println("Welcome to NelsonAir, please select your available flight from below: ");
+                System.out.println(ListOfFlights);
+            }
+        }
+    }
 
     //Customer cancel a booking
     public String cancelBooking (Customer customer, Flight flight, Ticket ticket) {
