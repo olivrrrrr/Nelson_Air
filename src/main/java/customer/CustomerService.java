@@ -219,7 +219,7 @@ public class CustomerService {
         //boolean flightListIsFull = false;
         System.out.println("Welcome to NelsonAir, please select your available flight from below: ");
         for (Flight listOfFlight : ListOfFlights) {
-            if (listOfFlight.getCount() != listOfFlight.getCapacity()) {
+            if (listOfFlight != null && listOfFlight.getCount() != listOfFlight.getCapacity()) {
                 System.out.println(listOfFlight.toString());
             }
         }

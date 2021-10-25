@@ -124,5 +124,18 @@ public class Flight {
         result = 31 * result + Arrays.hashCode(customers);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "timeOfFlight: " + timeOfFlight +
+                ", FlightNum: " + FlightNum +
+                ", flightStatus: " + flightStatus +
+                ", origin: " + origin +
+                ", destination: " + destination +
+                ", planeModelType: " + planeModelType +
+                ", Capacity: " + Capacity +
+                '}';
+    }
 }
 
