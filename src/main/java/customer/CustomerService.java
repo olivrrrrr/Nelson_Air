@@ -74,7 +74,7 @@ public class CustomerService {
                 }
             }
             if (flightListIsFull = true) {
-                return "You have booked to many tickets";
+                return "You have booked too many tickets";
                 //call cancel booking function
             }
 
@@ -211,7 +211,6 @@ public class CustomerService {
         }
         return new Ticket(null, null, 0, null, 0, null, null);
     }
-
 
 }
 
