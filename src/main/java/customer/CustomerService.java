@@ -212,6 +212,20 @@ public class CustomerService {
         return new Ticket(null, null, 0, null, 0, null, null);
     }
 
+    //Display flights that you can book:
+    public void  displayAvailableFlights(NelsonAir nelsonAir) {
+        Flight[] ListOfFlights = nelsonAir.getListOfFlights();
+        int FlightListLength = ListOfFlights.length;
+        //boolean flightListIsFull = false;
+        System.out.println("Welcome to NelsonAir, please select your available flight from below: ");
+        for (Flight listOfFlight : ListOfFlights) {
+            if (listOfFlight.getCount() != listOfFlight.getCapacity()) {
+                System.out.println(listOfFlight.toString());
+            }
+        }
+
+    }
+
 
 }
 
