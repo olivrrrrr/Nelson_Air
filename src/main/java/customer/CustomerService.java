@@ -37,7 +37,7 @@ public class CustomerService {
         // Loop thru the customer database
         int customerDatabaseListLength = customerDatabaseList.length;
         for(int i=0; i < customerDatabaseListLength; i++){
-            if(passportNumber.equals(customerDatabaseList[i].getPassportNumber())){
+            if(customerDatabaseList[i] != null && passportNumber.equals(customerDatabaseList[i].getPassportNumber())){
                 return customerDatabaseList[i];
             }
         }
@@ -150,7 +150,7 @@ public class CustomerService {
         Flight[] listOfFlights = nelsonAir.getListOfFlights();
         int listOfFlightsLength = listOfFlights.length;
         for(int i=0; i < listOfFlightsLength; i++){
-            if(flightNumber == listOfFlights[i].getFlightNum()){
+            if(listOfFlights[i] != null && flightNumber == listOfFlights[i].getFlightNum()){
                 return listOfFlights[i];
             }
         }

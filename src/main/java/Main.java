@@ -130,19 +130,24 @@ public class Main {
                     System.out.println("What is your passport number");
                     String inputtedPassportNumber = scanner.nextLine();
                     Customer currentCustomer = customerService.searchForCustomer(inputtedPassportNumber, customerDatabase);
-                    System.out.println("Please enter the flight number");
-                    int inputtedFlightNumber = scanner.nextInt();
-                    Flight chosenFlight = customerService.searchFlightList(inputtedFlightNumber, nelsonAir);
-                    if (chosenFlight.getFlightNum() == 0) {
-                        System.out.println("Flight was not found");
-                    } else {
-                        System.out.println(chosenFlight);
-                        Ticket ticket = customerService.findTicket(currentCustomer, chosenFlight);
-                        if (ticket.getFlightNumber() == 0) {
-                            System.out.println("Booking not found");
+                    if (currentCustomer.getPassportNumber() == null) {
+                        System.out.println("Your account was not found on the system");
+                    }
+                    else {
+                        System.out.println("Please enter the flight number");
+                        int inputtedFlightNumber = scanner.nextInt();
+                        Flight chosenFlight = customerService.searchFlightList(inputtedFlightNumber, nelsonAir);
+                        if (chosenFlight.getFlightNum() == 0) {
+                            System.out.println("Flight was not found");
                         } else {
-                            customerService.cancelBooking(currentCustomer, chosenFlight, ticket);
-                            System.out.println("Booking has been cancelled");
+                            System.out.println(chosenFlight);
+                            Ticket ticket = customerService.findTicket(currentCustomer, chosenFlight);
+                            if (ticket.getFlightNumber() == 0) {
+                                System.out.println("Booking not found");
+                            } else {
+                                customerService.cancelBooking(currentCustomer, chosenFlight, ticket);
+                                System.out.println("Booking has been cancelled");
+                            }
                         }
                     }
                 }
