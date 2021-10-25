@@ -61,7 +61,7 @@ public class Main {
         FlightService flightService = new FlightService();
 
         //Flight for testing purposes
-        Flight newFlight = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 123, FlightStatus.ONTIME, Location.LONDON, Location.LISBON, PlaneModelType.CONCORD, 50, null, 0);
+        Flight newFlight = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 123, FlightStatus.ONTIME, Location.LONDON, Location.LISBON, PlaneModelType.CONCORD, 50,  0);
         flightService.addFlightToNelsonAir(newFlight, nelsonAir);
         Customer Oli = new Customer("Oli", "1234", "111", "oliverekwalla@gmail.com");
         customerService.addCustomerToDatabase(Oli, customerDatabase);

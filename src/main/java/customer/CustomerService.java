@@ -155,7 +155,7 @@ public class CustomerService {
             }
         }
 
-        return new Flight(null, 0, null, null,null,null,0,null, 0);
+        return new Flight(null, 0, null, null,null,null,0,0);
     }
 
     //Display flights that you can book:
