@@ -158,8 +158,8 @@ public class CustomerService {
         return new Flight(null, 0, null, null,null,null,0,0);
     }
 
-    //Display flights that you can book:
-    //Sabi
+
+
 
     //Customer cancel a booking
     public String cancelBooking (Customer customer, Flight flight, Ticket ticket) {
@@ -167,7 +167,7 @@ public class CustomerService {
         Customer[] customerList = flight.getCustomers();
         int customerLength = customerList.length;
         for (int i = 0; i < customerLength; i++) {
-            if (customerList[i].equals(customer)) {
+            if (customerList[i] != null && customerList[i].equals(customer)) {
                 customerList[i] = null;
                 int count = flight.getCount();
                 flight.setCount(--count);

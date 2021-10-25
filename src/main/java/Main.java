@@ -65,7 +65,9 @@ public class Main {
         flightService.addFlightToNelsonAir(newFlight, nelsonAir);
         Customer Oli = new Customer("Oli", "1234", "111", "oliverekwalla@gmail.com");
         customerService.addCustomerToDatabase(Oli, customerDatabase);
-
+// Adding a flight to Oli
+        customerService.makeBooking(Oli, newFlight);
+        customerService.makeTicket(Oli, newFlight);
         //Entry point to Command Line Interface
         System.out.println("If you are a customer, press 1. If you are a staff member, press 2");
         //Variable to store response
@@ -99,7 +101,7 @@ public class Main {
                 else if (option.equals("2")) {
                     //Logic to see all available flights
                     customerService.displayAvailableFlights(nelsonAir);
-                    //SABI
+
                 }
                 else if (option.equals("3")) {
                     //Logic to make a booking
