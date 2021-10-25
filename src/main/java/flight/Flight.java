@@ -17,7 +17,7 @@ public class Flight {
     private int count;
     private Boolean isFullyBooked;
 
-    public Flight(LocalDate timeOfFlight, int flightNum, FlightStatus flightStatus, Location origin, Location destination, PlaneModelType planeModelType, int capacity, Customer[] customers, int count) {
+    public Flight(LocalDate timeOfFlight, int flightNum, FlightStatus flightStatus, Location origin, Location destination, PlaneModelType planeModelType, int capacity, int count) {
         this.timeOfFlight = timeOfFlight;
         this.FlightNum = flightNum;
         this.flightStatus = flightStatus;
@@ -25,7 +25,7 @@ public class Flight {
         this.destination = destination;
         this.planeModelType = planeModelType;
         this.Capacity = capacity;
-        this.customers = customers;
+        this.customers = new Customer[capacity];
         this.count = count;
         this.isFullyBooked = false;
     }
