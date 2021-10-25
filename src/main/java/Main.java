@@ -3,8 +3,13 @@ import customer.Customer;
 import customer.CustomerDatabase;
 import customer.CustomerService;
 import flight.Flight;
+import flight.FlightStatus;
+import flight.Location;
+import flight.PlaneModelType;
 import ticket.Ticket;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Scanner;
 
 import static java.lang.Float.NaN;
@@ -57,6 +62,8 @@ public class Main {
         NelsonAir nelsonAir = new NelsonAir();
         Scanner scanner = new Scanner(System.in);
 
+        Customer Oli = new Customer("Oli", "1234", 073736377, "oliverekwalla@gmail.com");
+
         //Entry point to Command Line Interface
         System.out.println("If you are a customer, press 1. If you are a staff member, press 2");
         //Variable to store response
@@ -66,15 +73,26 @@ public class Main {
             String option = "";
             do {
                 System.out.println("If you wish to exit, press 0 " +
-                        "If you wish to create an account press 1" +
-                        "If you wish to see all available flights, press 2" +
-                        "If you wish to make a booking, press 3" +
+                        " If you wish to create an account press 1" +
+                        " If you wish to see all available flights, press 2" +
+                        " If you wish to make a booking, press 3" +
                         "If you wish to cancel a booking, press 4" +
                         "If you would like to see your flights, press 5");
                 option = scanner.nextLine();
                 if (option.equals("1")) {
                     //Logic to create an account
                     //Oli
+                    System.out.println("What is your name ?");
+                    String name = scanner.nextLine();
+                    System.out.println("What is your passport number ?");
+                    String passportNumber = scanner.nextLine();
+                    System.out.println("What is your mobile number ?");
+                    String mobileNumber = scanner.nextLine();
+                    System.out.println("What is your email ?");
+                    String email = scanner.nextLine();
+                    Customer newCustomer = new Customer(name, passportNumber, mobileNumber, email);
+                    //Add the customer to the database
+                    System.out.println(customerService.addCustomerToDatabase(newCustomer, customerDatabase));
                 }
                 else if (option.equals("2")) {
                     //Logic to see all available flights
@@ -83,10 +101,45 @@ public class Main {
                 else if (option.equals("3")) {
                     //Logic to make a booking
                     //Oli
+                    System.out.println("What is your passport number");
+                    String inputtedPassportNumber = scanner.nextLine();
+                    Customer currentCustomer = customerService.searchForCustomer(inputtedPassportNumber, customerDatabase);
+                    if (currentCustomer.getPassportNumber() == null) {
+                        System.out.println("You are not on the system !");
+                    } else {
+                        System.out.println("Please enter the flight number");
+                        int inputtedFlightNumber = scanner.nextInt();
+                        Flight chosenFlight = customerService.searchFlightList(inputtedFlightNumber, nelsonAir);
+                        if (chosenFlight.getFlightNum() == 0) {
+                            System.out.println("Flight was not found");
+                        } else {
+                            System.out.println(chosenFlight + "You have successfully booked");
+                            customerService.makeBooking(currentCustomer, chosenFlight);
+                            customerService.makeTicket(currentCustomer, chosenFlight);
+                        }
+                    }
                 }
                 else if (option.equals("4")) {
                     //Logic to cancel a booking
                     //Oli
+                    System.out.println("What is your passport number");
+                    String inputtedPassportNumber = scanner.nextLine();
+                    Customer currentCustomer = customerService.searchForCustomer(inputtedPassportNumber, customerDatabase);
+                    System.out.println("Please enter the flight number");
+                    int inputtedFlightNumber = scanner.nextInt();
+                    Flight chosenFlight = customerService.searchFlightList(inputtedFlightNumber, nelsonAir);
+                    if (chosenFlight.getFlightNum() == 0) {
+                        System.out.println("Flight was not found");
+                    } else {
+                        System.out.println(chosenFlight);
+                        Ticket ticket = customerService.findTicket(currentCustomer, chosenFlight);
+                        if (ticket.getFlightNumber() == 0) {
+                            System.out.println("Booking not found");
+                        } else {
+                            customerService.cancelBooking(currentCustomer, chosenFlight, ticket);
+                            System.out.println("Booking has been cancelled");
+                        }
+                    }
                 }
                 else if (option.equals("5")) {
                     //Logic to see your flights
@@ -111,12 +164,44 @@ public class Main {
                 option = scanner.nextLine();
                 if (option.equals("1")) {
                     //Logic to add a flight
+                    // What is your staff id ?
+                    // What flight origin would you like to add
+                    // What is the light destination would like to have
+
+
+                    // Maybe make flight number random ?
+
+
+
+
                 }
                 else if (option.equals("2")) {
                     //Logic to modify flight status
                 }
                 else if (option.equals("3")) {
                     //Logic to cancel a flight
+                    System.out.println("What is your passport number");
+                    String inputtedPassportNumber = scanner.nextLine();
+                    Customer currentCustomer = customerService.searchForCustomer(inputtedPassportNumber, customerDatabase);
+                    if (currentCustomer.getPassportNumber() == null) {
+                        System.out.println("You are not on the system !");
+                    } else {
+                        System.out.println("Please enter the flight number");
+                        int inputtedFlightNumber = scanner.nextInt();
+                        Flight chosenFlight = customerService.searchFlightList(inputtedFlightNumber, nelsonAir);
+                        if (chosenFlight.getFlightNum() == 0) {
+                            System.out.println("Flight was not found");
+                        } else {
+                            System.out.println(chosenFlight);
+                            Ticket ticket = customerService.findTicket(currentCustomer, chosenFlight);
+                            if (ticket.getFlightNumber() == 0) {
+                                System.out.println("Booking not found");
+                            } else {
+                                customerService.cancelBooking(currentCustomer, chosenFlight, ticket);
+                                System.out.println("Booking has been cancelled");
+                            }
+                        }
+                    }
                 }
                 else if (option.equals("0")) {
 
@@ -137,41 +222,41 @@ public class Main {
 
         System.out.println("Do you want make an account ?");
         String reply = scanner.nextLine();
-        if (reply.equals("yes")) {
-            System.out.println("What is your name ?");
-            String name = scanner.nextLine();
-            System.out.println("What is your passport number ?");
-            String passportNumber = scanner.nextLine();
-            System.out.println("What is your mobile number ?");
-            String mobileNumber = scanner.nextLine();
-            System.out.println("What is your email ?");
-            String email = scanner.nextLine();
-            Customer newCustomer = new Customer(name, passportNumber, mobileNumber, email);
-            //Add the customer to the database
-            System.out.println(customerService.addCustomerToDatabase(newCustomer, customerDatabase));
-        }
+//        if (reply.equals("yes")) {
+//            System.out.println("What is your name ?");
+//            String name = scanner.nextLine();
+//            System.out.println("What is your passport number ?");
+//            String passportNumber = scanner.nextLine();
+//            System.out.println("What is your mobile number ?");
+//            String mobileNumber = scanner.nextLine();
+//            System.out.println("What is your email ?");
+//            String email = scanner.nextLine();
+//            Customer newCustomer = new Customer(name, passportNumber, mobileNumber, email);
+//            //Add the customer to the database
+//            System.out.println(customerService.addCustomerToDatabase(newCustomer, customerDatabase));
+//        }
 
         System.out.println("Would you like to buy a ticket ?");
         reply = scanner.nextLine();
-        if (reply.equals("yes")) {
-            System.out.println("What is your passport number");
-            String inputtedPassportNumber = scanner.nextLine();
-            Customer currentCustomer = customerService.searchForCustomer(inputtedPassportNumber, customerDatabase);
-            if (currentCustomer.getPassportNumber() == null) {
-                System.out.println("You are not on the system !");
-            } else {
-                System.out.println("Please enter the flight number");
-                int inputtedFlightNumber = scanner.nextInt();
-                Flight chosenFlight = customerService.searchFlightList(inputtedFlightNumber, nelsonAir);
-                if (chosenFlight.getFlightNum() == 0) {
-                    System.out.println("Flight was not found");
-                } else {
-                    System.out.println(chosenFlight);
-                    customerService.makeBooking(currentCustomer, chosenFlight);
-                    customerService.makeTicket(currentCustomer, chosenFlight);
-                }
-            }
-        }
+//        if (reply.equals("yes")) {
+//            System.out.println("What is your passport number");
+//            String inputtedPassportNumber = scanner.nextLine();
+//            Customer currentCustomer = customerService.searchForCustomer(inputtedPassportNumber, customerDatabase);
+//            if (currentCustomer.getPassportNumber() == null) {
+//                System.out.println("You are not on the system !");
+//            } else {
+//                System.out.println("Please enter the flight number");
+//                int inputtedFlightNumber = scanner.nextInt();
+//                Flight chosenFlight = customerService.searchFlightList(inputtedFlightNumber, nelsonAir);
+//                if (chosenFlight.getFlightNum() == 0) {
+//                    System.out.println("Flight was not found");
+//                } else {
+//                    System.out.println(chosenFlight);
+//                    customerService.makeBooking(currentCustomer, chosenFlight);
+//                    customerService.makeTicket(currentCustomer, chosenFlight);
+//                }
+//            }
+//        }
 
         System.out.println("Would you like to cancel a booking ?");
         if (reply.equals("yes")) {
