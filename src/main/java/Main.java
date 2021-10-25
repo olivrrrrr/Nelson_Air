@@ -107,36 +107,36 @@ public class Main {
             } while (option.equals("0") == false);
         }
 
-//        //Logic for staff
-//        else if (response.equals("2")) {
-//            String option = "";
-//            do {
-//                System.out.println("If you wish to exit, press 0" +
-//                        "If you wish to add a flight to NelsonAir, press 1" +
-//                        "If you wish to modify a flight status, press 2" +
-//                        "If you wish to cancel a flight, press 3");
-//                option = scanner.nextLine();
-//                if (option.equals("1")) {
-//                    //Logic to add a flight
-//                }
-//                else if (option.equals("2")) {
-//                    //Logic to modify flight status
-//                }
-//                else if (option.equals("3")) {
-//                    //Logic to cancel a flight
-//                }
-//                else if (option.equals("0")) {
-//
-//                }
-//                else {
-//                    System.out.println("Please enter a valid number");
-//                }
-//            } while (option.equals("0") == false);
-//        }
-//        //Logic if an invalid number is inputted
-//        else {
-//            System.out.println("Invalid number entered. CLI exited.");
-//        }
+        //Logic for staff
+        else if (response.equals("2")) {
+            String option = "";
+            do {
+                System.out.println("If you wish to exit, press 0" +
+                        "If you wish to add a flight to NelsonAir, press 1" +
+                        "If you wish to modify a flight status, press 2" +
+                        "If you wish to cancel a flight, press 3");
+                option = scanner.nextLine();
+                if (option.equals("1")) {
+                    //Logic to add a flight
+                }
+                else if (option.equals("2")) {
+                    //Logic to modify flight status
+                }
+                else if (option.equals("3")) {
+                    //Logic to cancel a flight
+                }
+                else if (option.equals("0")) {
+
+                }
+                else {
+                    System.out.println("Please enter a valid number");
+                }
+            } while (option.equals("0") == false);
+        }
+        //Logic if an invalid number is inputted
+        else {
+            System.out.println("Invalid number entered. CLI exited.");
+        }
 
             //END OF MAIN
 
