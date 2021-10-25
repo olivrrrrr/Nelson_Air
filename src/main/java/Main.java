@@ -62,7 +62,11 @@ public class Main {
 
         //Flight for testing purposes
         Flight newFlight = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 123, FlightStatus.ONTIME, Location.LONDON, Location.LISBON, PlaneModelType.CONCORD, 50,  0);
+        Flight newFlight1 = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 124, FlightStatus.ONTIME, Location.LONDON, Location.MAGALUF, PlaneModelType.CONCORD, 50,  0);
+        Flight newFlight2 = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 125, FlightStatus.ONTIME, Location.LONDON, Location.BUDAPEST, PlaneModelType.CONCORD, 50,  0);
         flightService.addFlightToNelsonAir(newFlight, nelsonAir);
+        flightService.addFlightToNelsonAir(newFlight1, nelsonAir);
+        flightService.addFlightToNelsonAir(newFlight2, nelsonAir);
         Customer Oli = new Customer("Oli", "1234", "111", "oliverekwalla@gmail.com");
         customerService.addCustomerToDatabase(Oli, customerDatabase);
 // Adding a flight to Oli
