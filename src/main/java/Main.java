@@ -77,11 +77,11 @@ public class Main {
             String option = "";
             do {
                 System.out.println("If you wish to exit, press 0 " +
-                        "If you wish to create an account press 1" +
-                        "If you wish to see all available flights, press 2" +
-                        "If you wish to make a booking, press 3" +
-                        "If you wish to cancel a booking, press 4" +
-                        "If you would like to see your flights, press 5");
+                        ". If you wish to create an account press 1" +
+                        ". If you wish to see all available flights, press 2" +
+                        ". If you wish to make a booking, press 3" +
+                        ". If you wish to cancel a booking, press 4" +
+                        ". If you would like to see your flights, press 5");
                 option = scanner.nextLine();
                 if (option.equals("1")) {
                     //Logic to create an account
@@ -152,13 +152,18 @@ public class Main {
                     Customer currentCustomer = customerService.searchForCustomer(inputtedPassportNumber, customerDatabase);
                     if (currentCustomer.getPassportNumber() == null) {
                         System.out.println("You are not on the system !");
-                    } else if (currentCustomer.getPassportNumber() == inputtedPassportNumber) {
+                    } else {
 //                        System.out.println("Please enter the flight number");
 //                        int inputtedFlightNumber = scanner.nextInt();
 //                        Flight chosenFlight = customerService.searchFlightList(inputtedFlightNumber, nelsonAir);
 //                        System.out.println("Here are your booked flights" + chosenFlight);
                         Flight[] customerFLightList = currentCustomer.getFlights();
-                        System.out.println(customerFLightList.toString());
+                        for(Flight flight : customerFLightList){
+                           if(flight != null) {
+                               System.out.println(flight.toString());
+                           }
+                        }
+
                     }
                 }
                 else if (option.equals("0")) {
@@ -174,9 +179,9 @@ public class Main {
             String option = "";
             do {
                 System.out.println("If you wish to exit, press 0" +
-                        "If you wish to add a flight to NelsonAir, press 1" +
-                        "If you wish to modify a flight status, press 2" +
-                        "If you wish to cancel a flight, press 3");
+                        ". If you wish to add a flight to NelsonAir, press 1" +
+                        ". If you wish to modify a flight status, press 2" +
+                        ". If you wish to cancel a flight, press 3");
                 option = scanner.nextLine();
                 if (option.equals("1")) {
                     //Logic to add a flight
