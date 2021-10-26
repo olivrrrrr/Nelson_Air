@@ -9,9 +9,24 @@ import java.time.LocalDate;
 
 public class CustomerService {
 
+    private CustomerDAO customerDAO;
+
+    public CustomerService(CustomerDAO customerDAO) {
+        this.customerDAO = customerDAO;
+    }
+
     //Add new customer to customerDatabase
+    public int addCustomerToDatabase(Customer customer){
+        String name = customer.getName();
+        if(name == null ){
+            throw new IllegalStateException("Name cannot be null");
+        }
+        customerDAO.addCustomerToDatabase(customer);
+        return 15;
+    }
     //Need to make customer database in main class
-    public String addCustomerToDatabase (Customer customer, CustomerDatabase customerDatabase) {
+
+    public String addCustomerToArray(Customer customer, CustomerDatabase customerDatabase) {
         Customer[] customerList = customerDatabase.getCustomerList();
         boolean isFull = true;
         int listLength = customerList.length;
@@ -28,6 +43,37 @@ public class CustomerService {
             return "System overloaded, unable to add customer at this time";
         }
         return "Customer added to system.";
+    }
+//    public String addCustomerToArray(Customer customer, CustomerDatabase customerDatabase) {
+//        Customer[] customerList = customerDatabase.getCustomerList();
+//        boolean isFull = true;
+//        int listLength = customerList.length;
+//        for(int i = 0; i < listLength; i++)
+//        {
+//            if(customerList[i] == null) {
+//                customerList[i] = customer;
+//                isFull = false;
+//                break;
+//            }
+//        }
+//        if (isFull == true)
+//        {
+//            return "System overloaded, unable to add customer at this time";
+//        }
+//        return "Customer added to system.";
+//    }
+
+    public String deleteCustomerFromDatabase(Customer customer, CustomerDatabase customerDatabase){
+        Customer[] customerList = customerDatabase.getCustomerList();
+        int customerListLength = customerList.length;
+
+        for(Customer customerAtIndex : customerList ){
+            if(customerAtIndex.equals(customer)){
+                customerAtIndex = null;
+                return "You've been deleted";
+            }
+        }
+        return "You're not on the database";
     }
 
     // Search for customer within the database

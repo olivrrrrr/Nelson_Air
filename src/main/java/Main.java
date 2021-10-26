@@ -1,7 +1,5 @@
 import airline.NelsonAir;
-import customer.Customer;
-import customer.CustomerDatabase;
-import customer.CustomerService;
+import customer.*;
 import flight.*;
 import ticket.Ticket;
 
@@ -55,7 +53,9 @@ public class Main {
 
         //Initialise new variables for the CLI
         CustomerDatabase customerDatabase = new CustomerDatabase();
-        CustomerService customerService = new CustomerService();
+        CustomerFileDataAccessService customerFileDataAccessService = new CustomerFileDataAccessService();
+        CustomerService customerService = new CustomerService(customerFileDataAccessService);
+        System.out.println(customerService.addCustomerToDatabase(new Customer("Oli", "4321", "00000001", "oli@snailmail.com")));
         NelsonAir nelsonAir = new NelsonAir();
         Scanner scanner = new Scanner(System.in);
         FlightService flightService = new FlightService();
@@ -68,7 +68,7 @@ public class Main {
         flightService.addFlightToNelsonAir(newFlight1, nelsonAir);
         flightService.addFlightToNelsonAir(newFlight2, nelsonAir);
         Customer Oli = new Customer("Oli", "1234", "111", "oliverekwalla@gmail.com");
-        customerService.addCustomerToDatabase(Oli, customerDatabase);
+//        customerService.addCustomerToDatabase(Oli, customerDatabase);
 // Adding a flight to Oli
         customerService.makeBooking(Oli, newFlight);
         customerService.makeTicket(Oli, newFlight);
@@ -100,7 +100,7 @@ public class Main {
                     String email = scanner.nextLine();
                     Customer newCustomer = new Customer(name, passportNumber, mobileNumber, email);
                     //Add the customer to the database
-                    System.out.println(customerService.addCustomerToDatabase(newCustomer, customerDatabase));
+//                    System.out.println(customerService.addCustomerToDatabase(newCustomer, customerDatabase));
                 }
                 else if (option.equals("2")) {
                     //Logic to see all available flights
@@ -215,6 +215,12 @@ public class Main {
         }
 
         //END OF MAIN
+
+//        CustomerListDataAccessService customerListDataAccessService =
+//                new CustomerListDataAccessService();
+//        CustomerFileDataAccessService customerFileDataAccessService =
+//                new CustomerFileDataAccessService();
+
 
 
 
