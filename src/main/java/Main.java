@@ -75,7 +75,7 @@ public class Main {
                     String email = scanner.nextLine();
                     Customer newCustomer = new Customer(name, passportNumber, mobileNumber, email);
                     //Add the customer to the database
-//                    System.out.println(customerService.addCustomerToDatabase(newCustomer, customerDatabase));
+                    customerFileDataAccessService.addCustomerToDatabase(newCustomer);
                 } else if (option.equals("2")) {
                     //Logic to see all available flights
                     customerService.displayAvailableFlights(nelsonAir);
@@ -162,6 +162,9 @@ public class Main {
                 option = scanner.nextLine();
                 if (option.equals("1")) {
                     //Logic to add a flight
+
+
+
                 } else if (option.equals("2")) {
                     //Logic to modify flight status
                 } else if (option.equals("3")) {
