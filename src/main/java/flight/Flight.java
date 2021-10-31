@@ -17,10 +17,10 @@ public class Flight {
     private int count;
     private Boolean isFullyBooked;
 
-    public Flight(LocalDate timeOfFlight, int flightNum, FlightStatus flightStatus, Location origin, Location destination, PlaneModelType planeModelType, int capacity, int count) {
+    public Flight(LocalDate timeOfFlight, int flightNum, Location origin, Location destination, PlaneModelType planeModelType, int capacity, int count) {
         this.timeOfFlight = timeOfFlight;
         this.FlightNum = flightNum;
-        this.flightStatus = flightStatus;
+        this.flightStatus = FlightStatus.ONTIME;
         this.origin = origin;
         this.destination = destination;
         this.planeModelType = planeModelType;

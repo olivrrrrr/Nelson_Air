@@ -201,7 +201,7 @@ public class CustomerService {
             }
         }
 
-        return new Flight(null, 0, null, null,null,null,0,0);
+        return new Flight(null, 0, null, null,null,0,0);
     }
 
 

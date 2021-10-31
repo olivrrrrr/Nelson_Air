@@ -8,8 +8,6 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Scanner;
 
-import static java.lang.Float.NaN;
-
 public class Main {
     public static void main(String[] args) {
 
@@ -30,9 +28,9 @@ public class Main {
         customerFileDataAccessService.deleteCustomerFromDatabase(Ollie);
 
         //Flight for testing purposes
-        Flight newFlight = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 123, FlightStatus.ONTIME, Location.LONDON, Location.LISBON, PlaneModelType.CONCORD, 50, 0);
-        Flight newFlight1 = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 124, FlightStatus.ONTIME, Location.LONDON, Location.MAGALUF, PlaneModelType.CONCORD, 50, 0);
-        Flight newFlight2 = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 125, FlightStatus.ONTIME, Location.LONDON, Location.BUDAPEST, PlaneModelType.CONCORD, 50, 0);
+        Flight newFlight = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 123,  Location.LONDON, Location.LISBON, PlaneModelType.CONCORD, 50, 0);
+        Flight newFlight1 = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 124,  Location.LONDON, Location.MAGALUF, PlaneModelType.CONCORD, 50, 0);
+        Flight newFlight2 = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 125, Location.LONDON, Location.BUDAPEST, PlaneModelType.CONCORD, 50, 0);
         flightService.addFlightToNelsonAir(newFlight, nelsonAir);
         flightService.addFlightToNelsonAir(newFlight1, nelsonAir);
         flightService.addFlightToNelsonAir(newFlight2, nelsonAir);
@@ -168,13 +166,35 @@ public class Main {
                 option = scanner.nextLine();
                 if (option.equals("1")) {
                     //Logic to add a flight
+                    System.out.println("What time and date is the flight scheduled for?");
+                    String timeOfFlight = scanner.nextLine();
+                    //parse string to local date
 
+                    //What is the flight number
+
+                    //What is the origin
+                    //try/catch if enum doesn't exist
+
+                    //What is the destination
+                    //try/catch if enum doesn't exist
+
+                    //What is the plane model
+                    //try/catch if enum doesn't exist
+
+                    //What is the capacity
+
+                    //Set the count to 0 in the constructor
+                    //Create flight and add to flight list (providing flight list isn't full)
 
 
                 } else if (option.equals("2")) {
                     //Logic to modify flight status
+                    //Do it based on flight number
+                    //use getters and setters
                 } else if (option.equals("3")) {
                     //Logic to cancel a flight
+                    //Do it based on flight number
+                    //use getters and setters
                 } else if (option.equals("0")) {
 
                 } else {
