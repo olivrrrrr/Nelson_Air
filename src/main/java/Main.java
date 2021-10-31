@@ -2,6 +2,7 @@ import airline.NelsonAir;
 import customer.*;
 import flight.*;
 import ticket.Ticket;
+import userInterface.EmailValidator;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -73,9 +74,14 @@ public class Main {
                     String mobileNumber = scanner.nextLine();
                     System.out.println("What is your email ?");
                     String email = scanner.nextLine();
-                    Customer newCustomer = new Customer(name, passportNumber, mobileNumber, email);
-                    //Add the customer to the database
-                    customerFileDataAccessService.addCustomerToDatabase(newCustomer);
+                    EmailValidator emailValidator = new EmailValidator();
+                    while (!emailValidator.isEmailValid(email)) {
+                        System.out.println("email is invalid, please re-enter:");
+                        email = scanner.nextLine();
+                    }
+                        Customer newCustomer = new Customer(name, passportNumber, mobileNumber, email);
+                        //Add the customer to the database
+                        customerFileDataAccessService.addCustomerToDatabase(newCustomer);
                 } else if (option.equals("2")) {
                     //Logic to see all available flights
                     customerService.displayAvailableFlights(nelsonAir);
