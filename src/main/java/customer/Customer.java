@@ -3,10 +3,11 @@ package customer;
 import flight.Flight;
 import ticket.Ticket;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Customer {
+public class Customer implements Serializable {
 
     private String name;
     private String passportNumber;

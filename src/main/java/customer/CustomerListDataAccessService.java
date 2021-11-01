@@ -1,12 +1,24 @@
 package customer;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-public class CustomerListDataAccessService implements CustomerDAO {
+public class CustomerListDataAccessService implements CustomerDAO, Serializable {
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerListDataAccessService{" +
+                "customers=" + customers +
+                '}';
+    }
+
     private List<Customer> customers = new ArrayList<>();
 
     @Override
@@ -47,6 +59,22 @@ public class CustomerListDataAccessService implements CustomerDAO {
 //
 //        }
 //    }
+    public int readIntoListFromFile() {
+        ObjectInputStream objectInputStream;
+        try (FileInputStream fileInputStream = new FileInputStream("src/customers.txt")) {
+            objectInputStream = new ObjectInputStream(fileInputStream);
+            List<Customer> customerDatabase = (List<Customer>) objectInputStream.readObject();
+            objectInputStream.close();
+            this.setCustomers(customerDatabase);
+            return 1;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }
 
 

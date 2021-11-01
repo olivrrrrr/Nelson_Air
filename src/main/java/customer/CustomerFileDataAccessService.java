@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CustomerFileDataAccessService implements CustomerDAO {
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+public class CustomerFileDataAccessService implements CustomerDAO, Serializable {
 
     @Override
     public int addCustomerToDatabase(Customer customer) {
@@ -72,6 +75,47 @@ public class CustomerFileDataAccessService implements CustomerDAO {
                 file.renameTo(new File("src/customers.txt"));
 //            }
         } catch(IOException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
+    public int createDatabaseFromList(CustomerListDataAccessService customerListDataAccessService) {
+        //Instantiate old file with pathname of current customer file
+        File oldFile = new File("src/customers.txt");
+
+        //Instantiate new file with temporary target pathname
+        File file = new File("src/customers1.txt");
+
+        //Instantiate new GSON builder to parse list to JSON
+//        GsonBuilder builder = new GsonBuilder();
+//        builder.setPrettyPrinting();
+//        Gson gson = builder.create();
+
+
+//        String jsonString = gson.toJson(customerListDataAccessService);
+
+
+        try {
+            FileOutputStream fileOutputStream
+                    = new FileOutputStream("src/customers1.txt");
+            ObjectOutputStream objectOutputStream
+                    = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(customerListDataAccessService.getCustomers());
+            objectOutputStream.flush();
+            objectOutputStream.close();
+//            //print to new file
+//            FileWriter fileWriter = new FileWriter(file);
+//            PrintWriter printWriter = new PrintWriter(fileWriter);
+//            printWriter.print(customerListDataAccessService.getCustomers());
+//            printWriter.flush();
+//            printWriter.close();
+            //Delete old file
+            oldFile.delete();
+            //rename new file to oldfile pathname so that method works on multiple runnings of CLI
+            file.renameTo(new File("src/customers.txt"));
+        } catch (IOException e) {
             e.printStackTrace();
             return 0;
         }

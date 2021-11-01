@@ -1,11 +1,12 @@
 package flight;
 import customer.Customer;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Flight {
+public class Flight implements Serializable {
     private LocalDate timeOfFlight;
     private int FlightNum;
     private FlightStatus flightStatus;

@@ -23,9 +23,19 @@ public class Main {
         CustomerFileDataAccessService customerFileDataAccessService = new CustomerFileDataAccessService();
         CustomerService customerService = new CustomerService(customerFileDataAccessService);
         Customer Ollie = new Customer("Oli", "4321", "00000001", "oli@snailmail.com");
-        System.out.println(customerService.addCustomerToDatabase(new Customer("Oli", "4321", "00000001", "oli@snailmail.com")));
-        System.out.println(customerService.addCustomerToDatabase(new Customer("Jason", "4351", "00000001", "oli@snailmail.com")));
-        customerFileDataAccessService.deleteCustomerFromDatabase(Ollie);
+//        System.out.println(customerService.addCustomerToDatabase(new Customer("Oli", "4321", "00000001", "oli@snailmail.com")));
+//        System.out.println(customerService.addCustomerToDatabase(new Customer("Jason", "4351", "00000001", "oli@snailmail.com")));
+//        customerFileDataAccessService.deleteCustomerFromDatabase(Ollie);
+
+        //Testing writing JSON to file
+        CustomerListDataAccessService customerListDataAccessService = new CustomerListDataAccessService();
+        CustomerService customerServiceFile = new CustomerService(customerFileDataAccessService);
+        CustomerService customerServiceList = new CustomerService(customerListDataAccessService);
+//        customerServiceList.addCustomerToDatabase(Ollie);
+//        customerServiceList.addCustomerToDatabase(new Customer("Jason", "4351", "00000001", "oli@snailmail.com"));
+//        customerFileDataAccessService.createDatabaseFromList(customerListDataAccessService);
+        customerListDataAccessService.readIntoListFromFile();
+        System.out.println(customerListDataAccessService.toString());
 
         //Flight for testing purposes
         Flight newFlight = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 123,  Location.LONDON, Location.LISBON, PlaneModelType.CONCORD, 50, 0);

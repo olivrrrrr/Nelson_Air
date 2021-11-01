@@ -2,6 +2,7 @@ package ticket;
 
 import flight.Location;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import flight.Location;
@@ -9,7 +10,7 @@ import flight.Location;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Ticket {
+public class Ticket implements Serializable {
         private String name;
         private String passportNumber;
 
