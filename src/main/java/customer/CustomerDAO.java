@@ -1,11 +1,9 @@
 package customer;
 
-import java.util.List;
-
 public interface CustomerDAO {
 
-    int addCustomerToDatabase(Customer customer);
-
-//    int deleteCustomerFromDatabase(Customer customer);
-//    List<Customer> getCustomers();
+    //Interface to allow customers to be added, deleted and searched for in a database
+    int addCustomerToDatabase(Customer customer, CustomerDatabase customerDatabase);
+    int deleteCustomerFromDatabase(Customer customer, CustomerDatabase customerDatabase);
+    Customer searchForCustomerFromDataBase(String passportnumber, CustomerDatabase customerDatabase);
 }

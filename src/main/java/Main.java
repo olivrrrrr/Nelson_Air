@@ -20,8 +20,8 @@ public class Main {
         FlightService flightService = new FlightService();
 
         //Testing CustomerFileDataAccessService implementation of the CustomerDAO interface
-        CustomerFileDataAccessService customerFileDataAccessService = new CustomerFileDataAccessService();
-        CustomerService customerService = new CustomerService(customerFileDataAccessService);
+//        CustomerListDataAccessService customerListDataAccessService= new CustomerListDataAccessService();
+//        CustomerService customerService = new CustomerService(customerListDataAccessService);
         Customer Ollie = new Customer("Oli", "4321", "00000001", "oli@snailmail.com");
 //        System.out.println(customerService.addCustomerToDatabase(new Customer("Oli", "4321", "00000001", "oli@snailmail.com")));
 //        System.out.println(customerService.addCustomerToDatabase(new Customer("Jason", "4351", "00000001", "oli@snailmail.com")));
@@ -29,13 +29,12 @@ public class Main {
 
         //Testing writing JSON to file
         CustomerListDataAccessService customerListDataAccessService = new CustomerListDataAccessService();
-        CustomerService customerServiceFile = new CustomerService(customerFileDataAccessService);
-        CustomerService customerServiceList = new CustomerService(customerListDataAccessService);
-//        customerServiceList.addCustomerToDatabase(Ollie);
-//        customerServiceList.addCustomerToDatabase(new Customer("Jason", "4351", "00000001", "oli@snailmail.com"));
-//        customerFileDataAccessService.createDatabaseFromList(customerListDataAccessService);
-        customerListDataAccessService.readIntoListFromFile();
-        System.out.println(customerListDataAccessService.toString());
+        CustomerService customerService = new CustomerService(customerListDataAccessService);
+//        customerService.getCustomerDAO().addCustomerToDatabase(Ollie, customerDatabase);
+//        customerService.getCustomerDAO().addCustomerToDatabase(new Customer("Jason", "4351", "00000001", "oli@snailmail.com"), customerDatabase);
+//        customerService.writeDataBaseToFile(customerDatabase);
+        customerListDataAccessService.readIntoListFromFile(customerDatabase);
+        System.out.println(customerDatabase.toString());
 
         //Flight for testing purposes
         Flight newFlight = new Flight(LocalDate.of(2021, Month.OCTOBER, 25), 123,  Location.LONDON, Location.LISBON, PlaneModelType.CONCORD, 50, 0);
@@ -47,7 +46,7 @@ public class Main {
 
         //Customer for testing purposes
         Customer Oli = new Customer("Oli", "1234", "111", "oliverekwalla@gmail.com");
-        customerService.addCustomerToArray(Oli, customerDatabase);
+//        customerListDataAccessService.addCustomerToDatabase(Oli, customerDatabase);
 
         //Booking a flight for Oli for testing purposes
         customerService.makeBooking(Oli, newFlight);
@@ -89,7 +88,7 @@ public class Main {
                     }
                         Customer newCustomer = new Customer(name, passportNumber, mobileNumber, email);
                         //Add the customer to the database
-                        customerFileDataAccessService.addCustomerToDatabase(newCustomer);
+//                        customerFileDataAccessService.addCustomerToDatabase(newCustomer);
                 } else if (option.equals("2")) {
                     //Logic to see all available flights
                     customerService.displayAvailableFlights(nelsonAir);
@@ -99,7 +98,7 @@ public class Main {
                     //Oli
                     System.out.println("What is your passport number");
                     String inputtedPassportNumber = scanner.nextLine();
-                    Customer currentCustomer = customerService.searchForCustomer(inputtedPassportNumber, customerDatabase);
+                    Customer currentCustomer = customerService.getCustomerDAO().searchForCustomerFromDataBase(inputtedPassportNumber, customerDatabase);
                     if (currentCustomer.getPassportNumber() == null) {
                         System.out.println("You are not on the system !");
                     } else {
@@ -119,7 +118,7 @@ public class Main {
                     //Oli
                     System.out.println("What is your passport number");
                     String inputtedPassportNumber = scanner.nextLine();
-                    Customer currentCustomer = customerService.searchForCustomer(inputtedPassportNumber, customerDatabase);
+                    Customer currentCustomer = customerService.getCustomerDAO().searchForCustomerFromDataBase(inputtedPassportNumber, customerDatabase);
                     if (currentCustomer.getPassportNumber() == null) {
                         System.out.println("Your account was not found on the system");
                     } else {
@@ -142,7 +141,7 @@ public class Main {
                 } else if (option.equals("5")) {
                     System.out.println("What is your passport number");
                     String inputtedPassportNumber = scanner.nextLine();
-                    Customer currentCustomer = customerService.searchForCustomer(inputtedPassportNumber, customerDatabase);
+                    Customer currentCustomer = customerService.getCustomerDAO().searchForCustomerFromDataBase(inputtedPassportNumber, customerDatabase);
                     if (currentCustomer.getPassportNumber() == null) {
                         System.out.println("You are not on the system !");
                     } else {

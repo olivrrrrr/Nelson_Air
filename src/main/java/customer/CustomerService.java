@@ -5,45 +5,57 @@ import flight.Flight;
 import flight.Location;
 import ticket.Ticket;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 
 public class CustomerService {
 
     private CustomerDAO customerDAO;
 
+    public CustomerDAO getCustomerDAO() {
+        return customerDAO;
+    }
+
+    public void setCustomerDAO(CustomerDAO customerDAO) {
+        this.customerDAO = customerDAO;
+    }
+
     public CustomerService(CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
     }
 
-    //Add new customer to customerDatabase
-    public int addCustomerToDatabase(Customer customer){
-        String name = customer.getName();
-        if(name == null ){
-            throw new IllegalStateException("Name cannot be null");
-        }
-        customerDAO.addCustomerToDatabase(customer);
-        return 15;
-    }
+//    //Add new customer to customerDatabase
+//    public int addCustomerToDatabase(Customer customer){
+//        String name = customer.getName();
+//        if(name == null ){
+//            throw new IllegalStateException("Name cannot be null");
+//        }
+//        customerDAO.addCustomerToDatabase(customer);
+//        return 15;
+//    }
     //Need to make customer database in main class
 
-    public String addCustomerToArray(Customer customer, CustomerDatabase customerDatabase) {
-        Customer[] customerList = customerDatabase.getCustomerList();
-        boolean isFull = true;
-        int listLength = customerList.length;
-        for(int i = 0; i < listLength; i++)
-        {
-            if(customerList[i] == null) {
-                customerList[i] = customer;
-                isFull = false;
-                break;
-            }
-        }
-        if (isFull == true)
-        {
-            return "System overloaded, unable to add customer at this time";
-        }
-        return "Customer added to system.";
-    }
+//    public String addCustomerToArray(Customer customer, CustomerDatabase customerDatabase) {
+//        Customer[] customerArray = customerDatabase.getCustomerArray();
+//        boolean isFull = true;
+//        int listLength = customerArray.length;
+//        for(int i = 0; i < listLength; i++)
+//        {
+//            if(customerArray[i] == null) {
+//                customerArray[i] = customer;
+//                isFull = false;
+//                break;
+//            }
+//        }
+//        if (isFull == true)
+//        {
+//            return "System overloaded, unable to add customer at this time";
+//        }
+//        return "Customer added to system.";
+//    }
 //    public String addCustomerToArray(Customer customer, CustomerDatabase customerDatabase) {
 //        Customer[] customerList = customerDatabase.getCustomerList();
 //        boolean isFull = true;
@@ -62,34 +74,34 @@ public class CustomerService {
 //        }
 //        return "Customer added to system.";
 //    }
-
-    public String deleteCustomerFromDatabase(Customer customer, CustomerDatabase customerDatabase){
-        Customer[] customerList = customerDatabase.getCustomerList();
-        int customerListLength = customerList.length;
-
-        for(Customer customerAtIndex : customerList ){
-            if(customerAtIndex.equals(customer)){
-                customerAtIndex = null;
-                return "You've been deleted";
-            }
-        }
-        return "You're not on the database";
-    }
-
-    // Search for customer within the database
-    public Customer searchForCustomer(String passportNumber, CustomerDatabase customerDatabase){
-        // Get the customer database
-        Customer[] customerDatabaseList = customerDatabase.getCustomerList();
-        // Loop thru the customer database
-        int customerDatabaseListLength = customerDatabaseList.length;
-        for(int i=0; i < customerDatabaseListLength; i++){
-            if(customerDatabaseList[i] != null && passportNumber.equals(customerDatabaseList[i].getPassportNumber())){
-                return customerDatabaseList[i];
-            }
-        }
-        Customer newCustomer = new Customer(null, null, null, null);
-        return  newCustomer;
-    }
+//
+//    public String deleteCustomerFromDatabase(Customer customer, CustomerDatabase customerDatabase){
+//        Customer[] customerArray = customerDatabase.getCustomerArray();
+//        int customerListLength = customerArray.length;
+//
+//        for(Customer customerAtIndex : customerArray ){
+//            if(customerAtIndex.equals(customer)){
+//                customerAtIndex = null;
+//                return "You've been deleted";
+//            }
+//        }
+//        return "You're not on the database";
+//    }
+//
+//    // Search for customer within the database
+//    public Customer searchForCustomer(String passportNumber, CustomerDatabase customerDatabase){
+//        // Get the customer database
+//        Customer[] customerDatabaseArray = customerDatabase.getCustomerArray();
+//        // Loop thru the customer database
+//        int customerDatabaseListLength = customerDatabaseArray.length;
+//        for(int i=0; i < customerDatabaseListLength; i++){
+//            if(customerDatabaseArray[i] != null && passportNumber.equals(customerDatabaseArray[i].getPassportNumber())){
+//                return customerDatabaseArray[i];
+//            }
+//        }
+//        Customer newCustomer = new Customer(null, null, null, null);
+//        return  newCustomer;
+//    }
 
 
     //Customer make a booking
@@ -270,6 +282,47 @@ public class CustomerService {
             }
         }
 
+    }
+
+    public int writeDataBaseToFile(CustomerDatabase customerDatabase) {
+        //Instantiate old file with pathname of current customer file
+        File oldFile = new File("src/customers.txt");
+
+        //Instantiate new file with temporary target pathname
+        File file = new File("src/customers1.txt");
+
+        //Instantiate new GSON builder to parse list to JSON
+//        GsonBuilder builder = new GsonBuilder();
+//        builder.setPrettyPrinting();
+//        Gson gson = builder.create();
+
+
+//        String jsonString = gson.toJson(customerListDataAccessService);
+
+
+        try {
+            FileOutputStream fileOutputStream
+                    = new FileOutputStream("src/customers1.txt");
+            ObjectOutputStream objectOutputStream
+                    = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(customerDatabase.getCustomerList());
+            objectOutputStream.flush();
+            objectOutputStream.close();
+//            //print to new file
+//            FileWriter fileWriter = new FileWriter(file);
+//            PrintWriter printWriter = new PrintWriter(fileWriter);
+//            printWriter.print(customerListDataAccessService.getCustomers());
+//            printWriter.flush();
+//            printWriter.close();
+            //Delete old file
+            oldFile.delete();
+            //rename new file to oldfile pathname so that method works on multiple runnings of CLI
+            file.renameTo(new File("src/customers.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
     }
 
 
